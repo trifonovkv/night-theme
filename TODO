@@ -1,8 +1,6 @@
 public
 test
 release
--change theme
---make script
----find command for change theme
 -get night light signal
+--get dbus signals
 -build in settings 
