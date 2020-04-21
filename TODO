@@ -1,6 +1,5 @@
 public
 test
 release
--get night light signal
---get dbus signals
+-rewrite chtheme on js
 -build in settings 
