@@ -1,5 +1,6 @@
 public
 test
 release
--merge dbus-listener and chtheme
+-get current theme
+--get theme dark or not
 -build in settings 
