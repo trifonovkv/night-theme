@@ -1,5 +1,5 @@
 public
 test
 release
--rewrite chtheme on js
+-merge dbus-listener and chtheme
 -build in settings 
