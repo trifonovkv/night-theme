@@ -1,6 +1,5 @@
 public
 test
 release
--get current theme
---get theme dark or not
+-create the service
 -build in settings 
