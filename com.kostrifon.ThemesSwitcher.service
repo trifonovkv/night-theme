@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=com.kostrifon.ThemesSwitcher.service
+Exec=/usr/bin/env gjs /home/kos/dev/new/night_light_theme.js

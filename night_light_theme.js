@@ -103,14 +103,4 @@ colorProxy(Gio.DBus.session, BUS_NAME, OBJECT_PATH, (proxy, error) => {
 })
 
 
-// tests
-log('   fs utils test')
-getDirectoryContents('/').forEach(entry => log(entry))
-getDataDirs().forEach(dataDir => log(dataDir))
-findDirsByName(getDataDirs(), 'themes').forEach(resourceDir => log(resourceDir))
-
-log('   themes tests')
-getValidThemes(getThemesDirs(findDirsByName(getDataDirs(), 'themes'))).forEach(theme => log(theme))
-
-
 Mainloop.run()
