@@ -1,5 +1,6 @@
 public
 test
 release
--create the service
--build in settings 
+-create settings
+--set theme to settings
+--get theme from settings
