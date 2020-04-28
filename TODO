@@ -1,8 +1,9 @@
 public
 test
 release
+-install scenario
+--install settings
+--install dbus service
 -create settings
 --set theme to settings
---install settings to system
 fix: service don't catch dbus signal
-fix: rename dbus service
