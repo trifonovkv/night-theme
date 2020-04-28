@@ -3,7 +3,6 @@ test
 release
 -create settings
 --set theme to settings
---get theme from settings
 --install settings to system
 fix: service don't catch dbus signal
 fix: rename dbus service
