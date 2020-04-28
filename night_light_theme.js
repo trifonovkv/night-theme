@@ -5,16 +5,17 @@ const Mainloop = imports.mainloop
 const BUS_NAME = 'org.gnome.SettingsDaemon.Color'
 const OBJECT_PATH = '/org/gnome/SettingsDaemon/Color'
 
-const Theme = {
-    light: 'Adwaita',
-    dark: 'Adwaita-dark'
-}
-const Settings = new Gio.Settings({ schema: 'org.gnome.desktop.interface' })
+const InterfaceSettings = new Gio.Settings({ schema: 'org.gnome.desktop.interface' })
+const ThemeSettings = new Gio.Settings({ schema: 'com.github.trifonovkv.themes-switcher' })
 const ColorInterface = '<node> \
 <interface name="org.gnome.SettingsDaemon.Color"> \
   <property name="NightLightActive" type="b" access="read"/> \
 </interface> \
 </node>'
+
+
+var getDayTheme = () => ThemeSettings.get_string('day-theme')
+var getNightTheme = () => ThemeSettings.get_string('night-theme')
 
 
 // fs utils
@@ -97,7 +98,10 @@ colorProxy(Gio.DBus.session, BUS_NAME, OBJECT_PATH, (proxy, error) => {
     proxy.connect(
         'g-properties-changed',
         () => {
-            Settings.set_string('gtk-theme', proxy.NightLightActive ? Theme.dark : Theme.light)
+            InterfaceSettings.set_string('gtk-theme', proxy.NightLightActive
+                ? getNightTheme()
+                : getDayTheme()
+            )
         }
     )
 })
