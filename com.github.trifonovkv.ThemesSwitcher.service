@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=com.github.trifonovkv.ThemesSwitcher
+Exec=/usr/bin/themes-switcher-service

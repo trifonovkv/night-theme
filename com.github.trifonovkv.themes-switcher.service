@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=com.github.trifonovkv.themes-switcher.service
-Exec=/usr/bin/env gjs /home/kos/dev/new/night_light_theme.js

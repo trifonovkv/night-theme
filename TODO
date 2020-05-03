@@ -6,4 +6,3 @@ release
 --install dbus service
 -create settings
 --set theme to settings
-fix: service don't catch dbus signal
