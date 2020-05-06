@@ -4,4 +4,4 @@ release
 -install scenario
 --install settings
 --install dbus service
--sort sources to folders
+--install schema
