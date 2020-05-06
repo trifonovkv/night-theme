@@ -4,5 +4,4 @@ release
 -install scenario
 --install settings
 --install dbus service
--create settings
---set theme to settings
+-sort sources to folders

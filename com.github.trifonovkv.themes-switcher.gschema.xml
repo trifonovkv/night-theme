@@ -1,8 +1,5 @@
 <schemalist>
   <schema id="com.github.trifonovkv.themes-switcher" path="/com/github/trifonovkv/themes-switcher/">
-    <key name="day-theme" type="s">
-      <default>"Adwaita"</default>
-    </key>
     <key name="night-theme" type="s">
       <default>"Adwaita-dark"</default>
     </key>
