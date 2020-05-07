@@ -5,4 +5,3 @@ release
 -remove scenario
 -install scenario
 fix resotre the day theme after turnoff day night
-fix dbus service not work on Fedora
