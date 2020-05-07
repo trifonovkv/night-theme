@@ -92,19 +92,20 @@ class HelloWorld {
         let builder = new Gtk.Builder()
         builder.add_from_file('NightThemeSettings.glade')
         this._window = builder.get_object('window1')
-        this.application.add_window(this._window)
-        this.menuButton = builder.get_object('menuButton1')
-        this._fillMenu(this.menuButton, getThemes())
+        this.application.add_window(this._window)        
+        this._fillMenu(builder.get_object('dayMenuButton'), 'day-theme')
+        this._fillMenu(builder.get_object('nightMenuButton'), 'night-theme')
     }
 
-    _fillMenu(menuButton, list) {
+    _fillMenu(menuButton, key) {
         var menu = menuButton.popup
-        menuButton.label = ThemeSettings.get_string('night-theme')
+        var list = getThemes()
+        menuButton.label = ThemeSettings.get_string(key)
         list.forEach(string => {
             var item = new Gtk.MenuItem({ label: string, visible: true })
             item.connect('activate', (item) => {
                 menuButton.label = item.label
-                ThemeSettings.set_string('night-theme', item.label)
+                ThemeSettings.set_string(key, item.label)
             })
             menu.append(item)
         })

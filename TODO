@@ -4,4 +4,3 @@ release
 -build rpm
 -remove scenario
 -install scenario
-fix resotre the day theme after turnoff day night
