@@ -90,7 +90,7 @@ class HelloWorld {
 
     _onStartup() {
         let builder = new Gtk.Builder()
-        builder.add_from_file('settings.glade')
+        builder.add_from_file('NightThemeSettings.glade')
         this._window = builder.get_object('window1')
         this.application.add_window(this._window)
         this.menuButton = builder.get_object('menuButton1')

@@ -1,7 +1,8 @@
 public
 test
 release
+-build rpm
+-remove scenario
 -install scenario
---install settings
---install dbus service
---install schema
+fix resotre the day theme after turnoff day night
+fix dbus service not work on Fedora
