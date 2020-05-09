@@ -4,4 +4,4 @@ release
 -build rpm
 -remove scenario
 -install scenario
---create the make file for service
+--create a main makefile
