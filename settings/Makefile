@@ -14,3 +14,7 @@ install-settings : NightThemeSettings.js NightThemeSettings.glade
 
 install-nts : nts.sh
 	install -m 755 $^ $(bindir)
+
+uninstall :
+	rm -rf $(INSTALL_DIR)
+	rm -f $(bindir)/nts.sh

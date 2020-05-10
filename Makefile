@@ -2,7 +2,7 @@ export INSTALL = /usr/bin/install
 export prefix = /usr/local
 export bindir = $(prefix)/bin
 
-TOPTARGETS := all install clean
+TOPTARGETS := all install uninstall clean
 
 SUBDIRS := $(wildcard */.)
 

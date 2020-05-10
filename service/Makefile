@@ -37,6 +37,10 @@ install :
 	$(INSTALL) $(SERVICE_NAME) $(bindir)/$(SERVICE_NAME)
 	$(INSTALL) $(SERVICE_FILE) /usr/share/dbus-1/services/
 
+uninstall :
+	rm -f $(bindir)/$(SERVICE_NAME)
+	rm -f /usr/share/dbus-1/services/$(SERVICE_FILE)
+
 start :
 	gdbus call --session \
                         --dest $(DBUS_SERVICE_NAME) \

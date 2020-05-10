@@ -2,4 +2,3 @@ public
 test
 release
 -build rpm
--remove scenario
