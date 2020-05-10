@@ -3,5 +3,3 @@ test
 release
 -build rpm
 -remove scenario
--install scenario
---create a main makefile
