@@ -1,51 +1,44 @@
 .PHONY : clean install
 
-NAME = themes-switcher
-SERVICE_NAME = $(NAME)-service
-INTERFACE_PREFIX = com.github.trifonovkv
-INTERFACE = $(INTERFACE_PREFIX).$(NAME)
-SERVICE_FILE = $(INTERFACE).service
-XML = $(INTERFACE).xml
-DBUS_SERVICE_NAME = $(INTERFACE_PREFIX).ThemesSwitcher
-OBJECT_PATH = /com/github/trifonovkv/ThemesSwitcher
-
-CC = cc
-OBJ = $(SERVICE_NAME).o $(NAME).o
 CFLAGS = `pkg-config --cflags gio-2.0 gio-unix-2.0 dbus-1 dbus-glib-1`
-LIBS = `pkg-config --libs gio-2.0 gio-unix-2.0 dbus-1 dbus-glib-1`
+LDLIBS = `pkg-config --libs gio-2.0 gio-unix-2.0 dbus-1 dbus-glib-1`
 
-all : $(SERVICE_NAME) $(SERVICE_FILE)
+PROGRAM_NAME = themes-switcher-service
+OBJS = $(addprefix $(BUILDDIR)/,themes-switcher.o themes-switcher-service.o)
+PROGRAM = $(addprefix $(BUILDDIR)/,$(PROGRAM_NAME))
+DBUS_SERVICE = $(addprefix $(BUILDDIR)/,com.github.trifonovkv.themes-switcher.service)
+DBUS_SERVICE_NAME = com.github.trifonovkv.ThemesSwitcher
+PROGRAM_TARGET = $(BINDIR)/$(PROGRAM_NAME)
+DBUS_SERVICE_TARGET = $(DESTDIR)/usr/share/dbus-1/services/com.github.trifonovkv.themes-switcher.service
 
-$(SERVICE_NAME) : $(OBJ)
-	$(CC) -o $@ $(OBJ) $(CFLAGS) $(LIBS)
+$(BUILDDIR)/%.o : %.c
+	$(COMPILE.c) $(OUTPUT_OPTION) $<
 
-$(SERVICE_NAME).o : $(SERVICE_NAME).c $(NAME).h
-	$(CC) -c $(CFLAGS) $^
+all : $(PROGRAM) $(DBUS_SERVICE)
 
-$(NAME).o : $(NAME).c $(NAME).h
-	$(CC) -c $(CFLAGS) $^
+$(OBJS): | $(BUILDDIR)
 
-$(NAME).c $(NAME).h : $(XML)
-	gdbus-codegen --interface-prefix $(INTERFACE_PREFIX) --generate-c-code $(NAME) $^
+$(BUILDDIR):
+	mkdir $(BUILDDIR)
 
-$(SERVICE_FILE) :
-	echo [D-BUS Service] > $@
-	echo Name=$(DBUS_SERVICE_NAME) >> $@
-	echo Exec=$(bindir)/$(SERVICE_NAME) >> $@
+$(PROGRAM) : $(OBJS)
+	$(LINK.o) $^ $(LDLIBS) -o $@
 
 install : 
-	$(INSTALL) $(SERVICE_NAME) $(bindir)/$(SERVICE_NAME)
-	$(INSTALL) $(SERVICE_FILE) /usr/share/dbus-1/services/
+	$(INSTALL) $(PROGRAM) $(PROGRAM_TARGET)
+	$(INSTALL_DATA) $(DBUS_SERVICE) $(DBUS_SERVICE_TARGET)
 
 uninstall :
-	rm -f $(bindir)/$(SERVICE_NAME)
-	rm -f /usr/share/dbus-1/services/$(SERVICE_FILE)
+	rm -f $(PROGRAM_TARGET)
+	rm -f $(DBUS_SERVICE_TARGET)
 
 start :
 	gdbus call --session \
                         --dest $(DBUS_SERVICE_NAME) \
-                        --object-path $(OBJECT_PATH) \
+                        --object-path /com/github/trifonovkv/ThemesSwitcher \
                         --method org.freedesktop.DBus.Peer.Ping
 
-clean :
-	rm -f $(SERVICE_NAME) $(OBJ) $(NAME).{c,h,h.gch} $(SERVICE_FILE)
+$(DBUS_SERVICE) :
+	echo [D-BUS Service] > $@
+	echo Name=$(DBUS_SERVICE_NAME) >> $@
+	echo Exec=$(X) >> $@

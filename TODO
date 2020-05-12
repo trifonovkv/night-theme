@@ -2,3 +2,4 @@ public
 test
 release
 -build rpm
+--add archive rule
