@@ -28,17 +28,15 @@ install :
 	$(INSTALL) $(PROGRAM) $(PROGRAM_TARGET)
 	$(INSTALL_DATA) $(DBUS_SERVICE) $(DBUS_SERVICE_TARGET)
 
+
 uninstall :
 	rm -f $(PROGRAM_TARGET)
 	rm -f $(DBUS_SERVICE_TARGET)
 
 start :
-	gdbus call --session \
-                        --dest $(DBUS_SERVICE_NAME) \
-                        --object-path /com/github/trifonovkv/ThemesSwitcher \
-                        --method org.freedesktop.DBus.Peer.Ping
+	gdbus wait --session --activate $(DBUS_SERVICE_NAME)
 
 $(DBUS_SERVICE) :
 	echo [D-BUS Service] > $@
 	echo Name=$(DBUS_SERVICE_NAME) >> $@
-	echo Exec=$(X) >> $@
+	echo Exec=$(PROGRAM_TARGET) >> $@
