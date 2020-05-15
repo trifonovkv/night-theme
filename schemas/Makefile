@@ -7,8 +7,10 @@ all :
 
 install : $(GSCHEMA)
 	$(INSTALL) $^ $(SCHEMAS_PATH)/$^
-	glib-compile-schemas $(SCHEMAS_PATH) 2> /dev/null
 
 uninstall : 
 	rm -f $(SCHEMAS_PATH)/$(GSCHEMA)
+	glib-compile-schemas $(SCHEMAS_PATH) 2> /dev/null
+
+start :
 	glib-compile-schemas $(SCHEMAS_PATH) 2> /dev/null

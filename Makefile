@@ -8,14 +8,16 @@ export INSTALL_DATA = /usr/bin/install -Dv -m 644
 TOPTARGETS = all install uninstall
 SUBDIRS = schemas service settings
 VERSION = 0.1
-DIST_DIR = night-theme-$(VERSION)
+APP = night-theme-$(VERSION)
+ZIP = $(APP).tar.gz
+DIST_DIR = ./dist
 
 $(TOPTARGETS) : $(SUBDIRS)
 
 $(SUBDIRS) :
 	$(MAKE) -C $@ $(MAKECMDGOALS)
 
-.PHONY : $(TOPTARGETS) $(SUBDIRS) dist clean
+.PHONY : $(TOPTARGETS) $(SUBDIRS) dist clean rpm distclean
 
 start :
 	$(MAKE) -C ./service start
@@ -24,13 +26,26 @@ clean :
 	rm -rf $(BUILDDIR)
 
 dist : clean
-	mkdir -p $(DIST_DIR)
+	mkdir -p $(APP) $(DIST_DIR)
 	cp -a schemas \
 				service \
 				settings \
 				LICENSE \
 				Makefile \
 				README \
-										$(DIST_DIR)
-	tar czvf $(DIST_DIR).tar.gz $(DIST_DIR)
+									$(APP)
+	tar czvf $(ZIP) $(APP)
+	rm -rf $(APP)
+	mv $(ZIP) $(DIST_DIR)
+
+rpm : dist
+	sed -i 's/^Version:.*/Version:        $(VERSION)/' night-theme.spec 
+	rpmdev-setuptree
+	cp $(DIST_DIR)/$(ZIP) ~/rpmbuild/SOURCES
+	cp night-theme.spec ~/rpmbuild/SPECS
+	rpmbuild -ba ~/rpmbuild/SPECS/night-theme.spec
+	cp ~/rpmbuild/RPMS/x86_64/* $(DIST_DIR)/
+	rm -rf ~/rpmbuild
+
+distclean : 
 	rm -rf $(DIST_DIR)

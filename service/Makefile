@@ -12,7 +12,7 @@ PROGRAM_TARGET = $(BINDIR)/$(PROGRAM_NAME)
 DBUS_SERVICE_TARGET = $(DESTDIR)/usr/share/dbus-1/services/com.github.trifonovkv.themes-switcher.service
 
 $(BUILDDIR)/%.o : %.c
-	$(COMPILE.c) $(OUTPUT_OPTION) $<
+	$(COMPILE.c) -g $(OUTPUT_OPTION) $<
 
 all : $(PROGRAM) $(DBUS_SERVICE)
 
