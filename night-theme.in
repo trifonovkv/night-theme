@@ -26,6 +26,9 @@ rm -rf $RPM_BUILD_ROOT
 %post
 glib-compile-schemas /usr/share/glib-2.0/schemas 2> /dev/null
 
+%preun
+kill `pidof themes-switcher-service`
+
 %files
 %license LICENSE
 /usr/bin/night-theme-settings
