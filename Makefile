@@ -43,7 +43,7 @@ rpm : dist
 	cp $(DIST_DIR)/$(ZIP) ~/rpmbuild/SOURCES
 	cp $(DIST_DIR)/night-theme.spec ~/rpmbuild/SPECS
 	rpmbuild -ba ~/rpmbuild/SPECS/night-theme.spec
-	cp ~/rpmbuild/RPMS/x86_64/* $(DIST_DIR)/
+	cp -a ~/rpmbuild/RPMS $(DIST_DIR)/
 	rm -rf ~/rpmbuild
 
 distclean : 
