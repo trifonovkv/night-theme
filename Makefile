@@ -4,6 +4,7 @@ export BINDIR = $(DESTDIR)$(prefix)/bin
 export BUILDDIR = $(CURDIR)/build
 export INSTALL = /usr/bin/install -Dv
 export INSTALL_DATA = /usr/bin/install -Dv -m 644
+export DBUS_SERVICE_NAME = com.github.trifonovkv.ThemesSwitcher
 
 TOPTARGETS = all install uninstall
 SUBDIRS = schemas service settings
@@ -18,9 +19,6 @@ $(SUBDIRS) :
 	$(MAKE) -C $@ $(MAKECMDGOALS)
 
 .PHONY : $(TOPTARGETS) $(SUBDIRS) dist clean rpm distclean
-
-start :
-	$(MAKE) -C ./service start
 
 clean :
 	rm -rf $(BUILDDIR)
@@ -39,10 +37,10 @@ dist : clean
 	mv $(ZIP) $(DIST_DIR)
 
 rpm : dist
-	sed -i 's/^Version:.*/Version:        $(VERSION)/' night-theme.spec 
+	sed 's/VERSION/$(VERSION)/' night-theme.in > $(DIST_DIR)/night-theme.spec
 	rpmdev-setuptree
 	cp $(DIST_DIR)/$(ZIP) ~/rpmbuild/SOURCES
-	cp night-theme.spec ~/rpmbuild/SPECS
+	cp $(DIST_DIR)/night-theme.spec ~/rpmbuild/SPECS
 	rpmbuild -ba ~/rpmbuild/SPECS/night-theme.spec
 	cp ~/rpmbuild/RPMS/x86_64/* $(DIST_DIR)/
 	rm -rf ~/rpmbuild

@@ -1,3 +1,6 @@
+move settings to dbus service
 public
 test
 release
+add kill process to remove rules in rpm
+rename nts.sh to night-theme-settings

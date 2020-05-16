@@ -7,7 +7,6 @@ PROGRAM_NAME = themes-switcher-service
 OBJS = $(addprefix $(BUILDDIR)/,themes-switcher.o themes-switcher-service.o)
 PROGRAM = $(addprefix $(BUILDDIR)/,$(PROGRAM_NAME))
 DBUS_SERVICE = $(addprefix $(BUILDDIR)/,com.github.trifonovkv.themes-switcher.service)
-DBUS_SERVICE_NAME = com.github.trifonovkv.ThemesSwitcher
 PROGRAM_TARGET = $(BINDIR)/$(PROGRAM_NAME)
 DBUS_SERVICE_TARGET = $(DESTDIR)/usr/share/dbus-1/services/com.github.trifonovkv.themes-switcher.service
 
@@ -28,13 +27,9 @@ install :
 	$(INSTALL) $(PROGRAM) $(PROGRAM_TARGET)
 	$(INSTALL_DATA) $(DBUS_SERVICE) $(DBUS_SERVICE_TARGET)
 
-
 uninstall :
 	rm -f $(PROGRAM_TARGET)
 	rm -f $(DBUS_SERVICE_TARGET)
-
-start :
-	gdbus wait --session --activate $(DBUS_SERVICE_NAME)
 
 $(DBUS_SERVICE) :
 	echo [D-BUS Service] > $@

@@ -5,6 +5,8 @@ imports.gi.versions.Gtk = '3.0'
 const { Gio, Gtk, GLib } = imports.gi
 
 const ThemeSettings = new Gio.Settings({ schema: 'com.github.trifonovkv.themes-switcher' })
+const NAME = 'com.github.trifonovkv.ThemesSwitcher'
+const OBJECT_PATH = '/' + NAME.replace(/\./g, '\/')
 
 // fs utils
 var getDirectoryContents = (path) => {
@@ -77,6 +79,28 @@ var getValidThemes = (paths) => {
 
 var getThemes = () => getValidThemes(getThemesPaths(getDataPath()))
 
+// start dbus service
+var pingDBusService = (name, objectPath) => {
+    var cancellable = new Gio.Cancellable()
+    Gio.DBusProxy.new_sync(
+      Gio.bus_get_sync(Gio.BusType.SESSION, cancellable),
+      Gio.DBusProxyFlags.NONE,
+      null,
+      name,
+      objectPath,
+      "org.freedesktop.DBus.Peer",
+      cancellable
+    ).call_sync(
+      "Ping",
+      new GLib.Variant("()", "()"),
+      Gio.DBusCallFlags.NONE,
+      -1,
+      null
+    )
+  }
+
+var runService = () => pingDBusService(NAME, OBJECT_PATH)
+
 class HelloWorld {
     constructor() {
         this.application = new Gtk.Application();
@@ -106,6 +130,7 @@ class HelloWorld {
             item.connect('activate', (item) => {
                 menuButton.label = item.label
                 ThemeSettings.set_string(key, item.label)
+                runService()
             })
             menu.append(item)
         })

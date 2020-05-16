@@ -1,14 +1,19 @@
+NAME = NightThemeSettings
 INSTALL_DIR = $(BINDIR)/night-theme-settings
 NTS = $(BUILDDIR)/nts.sh
 TARGET_NTS = $(BINDIR)/nts.sh
+JS = $(BUILDDIR)/$(NAME).js
 
 .PHONY : install install-settings install-nts
 
-all : $(NTS)
+all : $(NTS) $(JS)
+
+$(JS) : $(NAME).in
+	sed 's/DBUS_SERVICE_NAME/$(DBUS_SERVICE_NAME)/' $^ > $(JS)
 
 install : install-settings install-nts
 
-install-settings : NightThemeSettings.js NightThemeSettings.glade
+install-settings : $(JS) $(NAME).glade
 	mkdir -p $(INSTALL_DIR)
 	install $^ $(INSTALL_DIR)
 
@@ -23,4 +28,4 @@ $(NTS) :
 	echo "#!/bin/sh" > $@
 	echo >> $@
 	echo cd $(INSTALL_DIR) >> $@
-	echo /usr/bin/env gjs NightThemeSettings.js >> $@
+	echo /usr/bin/env gjs $(NAME).js >> $@ 
