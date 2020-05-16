@@ -114,7 +114,7 @@ class HelloWorld {
 
     _onStartup() {
         let builder = new Gtk.Builder()
-        builder.add_from_file('NightThemeSettings.glade')
+        builder.add_from_file('NightThemeSettings.ui')
         this._window = builder.get_object('window1')
         this.application.add_window(this._window)        
         this._fillMenu(builder.get_object('dayMenuButton'), 'day-theme')

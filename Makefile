@@ -1,6 +1,7 @@
 export prefix = /usr/local
 export DESTDIR =
 export BINDIR = $(DESTDIR)$(prefix)/bin
+export SHAREDIR = $(DESTDIR)$(prefix)/share
 export BUILDDIR = $(CURDIR)/build
 export INSTALL = /usr/bin/install -Dv
 export INSTALL_DATA = /usr/bin/install -Dv -m 644

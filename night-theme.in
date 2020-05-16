@@ -28,10 +28,10 @@ glib-compile-schemas /usr/share/glib-2.0/schemas 2> /dev/null
 
 %files
 %license LICENSE
-/usr/bin/nts.sh
+/usr/bin/night-theme-settings
 /usr/bin/themes-switcher-service
-/usr/bin/night-theme-settings/NightThemeSettings.glade
-/usr/bin/night-theme-settings/NightThemeSettings.js
+/usr/share/night-theme-settings/NightThemeSettings.ui
+/usr/share/night-theme-settings/NightThemeSettings.js
 /usr/share/dbus-1/services/com.github.trifonovkv.themes-switcher.service
 /usr/share/glib-2.0/schemas/com.github.trifonovkv.themes-switcher.gschema.xml
 

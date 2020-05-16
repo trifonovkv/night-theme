@@ -1,7 +1,7 @@
 NAME = NightThemeSettings
-INSTALL_DIR = $(BINDIR)/night-theme-settings
-NTS = $(BUILDDIR)/nts.sh
-TARGET_NTS = $(BINDIR)/nts.sh
+INSTALL_DIR = $(SHAREDIR)/night-theme-settings
+NTS = $(BUILDDIR)/night-theme-settings
+TARGET_NTS = $(BINDIR)/night-theme-settings
 JS = $(BUILDDIR)/$(NAME).js
 
 .PHONY : install install-settings install-nts
@@ -13,7 +13,7 @@ $(JS) : $(NAME).in
 
 install : install-settings install-nts
 
-install-settings : $(JS) $(NAME).glade
+install-settings : $(JS) $(NAME).ui
 	mkdir -p $(INSTALL_DIR)
 	install $^ $(INSTALL_DIR)
 
