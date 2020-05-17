@@ -6,7 +6,7 @@ Summary:        This app switch GNOME theme between dark and light by day time.
 License:        GPL-3
 Source0:        %{_sourcedir}/%{name}-%{version}.tar.gz
 
-BuildRequires:  make gcc
+BuildRequires:  make gcc dbus-glib-devel
 Requires:       gnome-desktop3
 
 %description   

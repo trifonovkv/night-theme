@@ -35,6 +35,7 @@ dist : clean
 				LICENSE \
 				Makefile \
 				README \
+				night-theme.in \
 									$(APP)
 	tar czvf $(ZIP) $(APP)
 	rm -rf $(APP)
