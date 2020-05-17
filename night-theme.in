@@ -33,6 +33,7 @@ kill `pidof themes-switcher-service`
 %license LICENSE
 /usr/bin/night-theme-settings
 /usr/bin/themes-switcher-service
+/usr/share/night-theme-settings/
 /usr/share/night-theme-settings/NightThemeSettings.ui
 /usr/share/night-theme-settings/NightThemeSettings.js
 /usr/share/dbus-1/services/com.github.trifonovkv.themes-switcher.service

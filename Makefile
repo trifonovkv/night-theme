@@ -19,7 +19,10 @@ $(TOPTARGETS) : $(SUBDIRS)
 $(SUBDIRS) :
 	$(MAKE) -C $@ $(MAKECMDGOALS)
 
-.PHONY : $(TOPTARGETS) $(SUBDIRS) dist clean rpm distclean
+.PHONY : $(TOPTARGETS) $(SUBDIRS) dist clean rpm distclean start
+
+start : 
+	$(MAKE) -C ./schemas start
 
 clean :
 	rm -rf $(BUILDDIR)
